@@ -34,7 +34,7 @@ jobs:
         - run:
             name: Run tests
             command: |
-              pip install pytest
+              pip install pytest requests
               git clone https://github.com/bngoc1307/Nhom04_CCPTPM
               cd Nhom04_CCPTPM
               pytest
@@ -44,4 +44,5 @@ jobs:
 workflows:
   build_and_test:
     jobs:
+      - prepare-rabbit
       - build-and-test
