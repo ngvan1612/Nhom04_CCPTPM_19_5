@@ -10,14 +10,12 @@ jobs:
       - run: echo "this is the build job"
   prepare_rabbit:
     docker:
-      - image: rabbitmq
-        name: video-server-rabbitmq
-        environment:
-          RABBITMQ_DEFAULT_USER: guest
-          RABBITMQ_DEFAULT_PASS: guest
+      - image: docker:17.05.0-ce-git
     steps:
-      - run: echo "OK"
-
+      - run:
+          name: Test docker-compose
+          command: |
+            docker-compose up -d
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
