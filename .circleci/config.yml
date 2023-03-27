@@ -11,6 +11,7 @@ jobs:
   prepare-rabbit:
     docker:
       - image: docker:17.05.0-ce-git
+      - image: cimg/python:3.11.0
     steps:
       - checkout
       - setup_remote_docker
@@ -25,19 +26,19 @@ jobs:
             git clone https://github.com/bngoc1307/video-server-app
             cd video-server-app
             docker-compose up -d
+      - run:
+          name: Run tests
+          command: |
+            pip install pytest requests
+            git clone https://github.com/bngoc1307/Nhom04_CCPTPM
+            cd Nhom04_CCPTPM
+            pytest
 
   build-and-test:
       docker:
         - image: cimg/python:3.11.0
       steps:
         - checkout
-        - run:
-            name: Run tests
-            command: |
-              pip install pytest requests
-              git clone https://github.com/bngoc1307/Nhom04_CCPTPM
-              cd Nhom04_CCPTPM
-              pytest
 
 
 # Orchestrate our job run sequence
@@ -45,4 +46,3 @@ workflows:
   build_and_test:
     jobs:
       - prepare-rabbit
-      - build-and-test
