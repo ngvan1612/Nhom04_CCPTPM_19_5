@@ -20,9 +20,9 @@ jobs:
             apk add --no-cache py-pip=9.0.0-r1
             pip install docker-compose==1.15.0
       - run:
-          name: Run tests
+          name: Install video server app
           command: |
-            git clone https://github.com/superdesk/video-server-app
+            git clone https://github.com/bngoc1307/video-server-app
             cd video-server-app
             docker-compose up -d
 # Orchestrate our job run sequence
