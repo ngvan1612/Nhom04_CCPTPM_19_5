@@ -22,8 +22,9 @@ jobs:
       - run:
           name: Run tests
           command: |
+            git clone https://github.com/superdesk/video-server-app
+            cd video-server-app
             docker-compose up -d
-            docker-compose run dockerapp1 python test.py
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
