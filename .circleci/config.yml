@@ -8,27 +8,18 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the build job"
-  preparedocker:
+  prepare_rabbit:
     docker:
-      - image: ubuntu:bionic
+      - image: rabbitmq
+        name: video-server-rabbitmq
+        environment:
+          RABBITMQ_DEFAULT_USER: guest
+          RABBITMQ_DEFAULT_PASS: guest
     steps:
-      - run:
-          name: Install docker-compose
-          environment:
-            COMPOSE_VERSION: '1.29.2'
-          command: |
-            sudo apt-get update
-            sudo apt-get install honcho python3 python-is-python3 python3-pip
-            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-            git clone https://github.com/superdesk/video-server-app.git
-            cd video-server-app
-            pip install -r requirements.txt
-            honcho start
+      - run: echo "OK"
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
-      - preparedocker
+      - prepare_rabbit
