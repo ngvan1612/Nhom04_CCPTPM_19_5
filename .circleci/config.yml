@@ -20,10 +20,9 @@ jobs:
           environment:
             COMPOSE_VERSION: '1.29.2'
           command: |
-            systemctl start docker
-            git clone https://github.com/superdesk/video-server-app
-            cd video-server-app
-            docker-compose up -d
+            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
 # Orchestrate our job run sequence
 workflows:
