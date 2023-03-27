@@ -10,16 +10,24 @@ jobs:
       - run: echo "this is the build job"
   preparedocker:
     docker:
-      - image: ubuntu
+      - image: cimg/base:2023.03
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
     steps:
       - run:
-        name: Install docker-compose
-        environment:
-          COMPOSE_VERSION: '1.29.2'
-        command: |
-          curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-          chmod +x ~/docker-compose
-          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+          name: Install docker-compose
+          environment:
+            COMPOSE_VERSION: '1.29.2'
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+            git clone https://github.com/superdesk/video-server-app.git
+            cd video-server-app
+            pip install -r requirements.txt
+            sudo apt-get install honcho
+            honcho start
 
 # Orchestrate our job run sequence
 workflows:
