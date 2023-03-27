@@ -10,7 +10,6 @@ jobs:
       - run: echo "this is the build job"
   prepare-rabbit:
     docker:
-      - image: docker:17.05.0-ce-git
       - image: cimg/python:3.11.0
     steps:
       - checkout
