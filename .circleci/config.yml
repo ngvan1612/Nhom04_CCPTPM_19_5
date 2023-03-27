@@ -9,6 +9,8 @@ jobs:
       - checkout
       - run: echo "this is the build job"
   prepare:
+    docker:
+      - image: ubuntu
     steps:
       - run: echo "ahihi"
 
