@@ -23,8 +23,8 @@ jobs:
           name: Run tests
           command: |
             git clone https://github.com/bngoc1307/Nhom04_CCPTPM
-            sudo apt-get update
-            sudo apt-get install python3 python-is-python3 python3-pip
+            apt-get update
+            apt-get install python3 python-is-python3 python3-pip
             pip install pytest
             cd Nhom04_CCPTPM
             pytest
