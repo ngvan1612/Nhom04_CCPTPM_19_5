@@ -9,6 +9,8 @@ jobs:
       - checkout
       - run: echo "this is the build job"
   preparedocker:
+    docker:
+      - image: ubuntu
     steps:
       - run:
         name: Install docker-compose
