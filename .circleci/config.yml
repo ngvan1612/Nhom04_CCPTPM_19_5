@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            pip install docker-compose==1.15.0
+            pip install docker-compose
       - run:
           name: Install video server app
           command: |
