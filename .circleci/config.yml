@@ -8,6 +8,31 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the build job"
+  preparedocker:
+    docker:
+      - image: cimg/base:2023.03
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - run:
+          name: Install docker-compose
+          environment:
+            COMPOSE_VERSION: '1.29.2'
+          command: |
+            sudo apt-get install honcho python3 python-is-
+            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usaversion: 2.1
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2023.03
+    steps:
+      - checkout
+      - run: echo "this is the build job"
   prepare_rabbit:
     docker:
       - image: docker:17.05.0-ce-git
@@ -20,22 +45,39 @@ jobs:
             apk add --no-cache py-pip=9.0.0-r1
             pip install docker-compose==1.15.0
       - run:
-          name: Run tests
-          command: |
-            git clone https://github.com/bngoc1307/Nhom04_CCPTPM
-            apt update
-            apt install python3 python-is-python3 python3-pip
-            pip install pytest
-            cd Nhom04_CCPTPM
-            pytest
-      - run:
           name: Install video server app
           command: |
             git clone https://github.com/bngoc1307/video-server-app
             cd video-server-app
             docker-compose up -d
+
+    build-and-test:
+        docker:
+          - image: cimg/python:3.11.0
+        steps:
+          - checkout
+          - python/install-packages:
+              pkg-manager: pip
+          - run:
+              name: Run tests
+              command: |
+                git clone https://github.com/bngoc1307/Nhom04_CCPTPM
+                cd Nhom04_CCPTPM
+                pytest
+
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
-      - prepare_rabbit
+      - prepare_rabbitr/local/bin/docker-compose
+            git clone https://github.com/superdesk/video-server-app.git
+            cd video-server-app
+            pip install -r requirements.txt
+            honcho start
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build-and-test
+      - preparedocker
