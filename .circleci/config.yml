@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the build job"
-  prepare:
+  preparedocker:
     docker:
       - image: ubuntu
     steps:
@@ -18,4 +18,4 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - prepare
+      - preparedocker
