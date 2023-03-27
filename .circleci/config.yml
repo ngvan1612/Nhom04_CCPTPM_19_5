@@ -20,6 +20,7 @@ jobs:
           environment:
             COMPOSE_VERSION: '1.29.2'
           command: |
+            systemctl start docker
             git clone https://github.com/superdesk/video-server-app
             cd video-server-app
             docker-compose up -d
