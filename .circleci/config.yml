@@ -27,7 +27,11 @@ jobs:
       - run:
           name: Run tests
           command: |
-            pip3 install pytest requests
+            pip uninstall urllib3
+            pip install --no-cache-dir -U urllib3
+            pip uninstall chardet
+            pip install --no-cache-dir -U chardet
+            pip install pytest requests
             git clone https://github.com/bngoc1307/Nhom04_CCPTPM
             cd Nhom04_CCPTPM
             pytest
