@@ -10,7 +10,7 @@ jobs:
       - run: echo "this is the build job"
   prepare-rabbit:
     docker:
-      - image: cimg/python:3.11.0
+      - image: cimg/python:3.7.0
     steps:
       - checkout
       - setup_remote_docker
