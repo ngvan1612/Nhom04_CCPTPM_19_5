@@ -25,7 +25,7 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
             git clone https://github.com/superdesk/video-server-app
             cd video-server-app
-            /usr/local/bin/docker-compose up
+            /usr/local/bin/docker-composse up
 
 # Orchestrate our job run sequence
 workflows:
