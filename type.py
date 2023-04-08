@@ -1,4 +1,4 @@
-BASE_URL = 'http://localhost:5050'
+BASE_URL = 'http://server:5050'
 
 URL_CREATE_PROJECT = BASE_URL + '/projects/'
 URL_LIST_PROJECTS = BASE_URL + '/projects/'
