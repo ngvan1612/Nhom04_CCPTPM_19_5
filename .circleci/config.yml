@@ -15,35 +15,22 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Clone git
+          command: |
+            git clone https://github.com/ngthvan1612/video-server-app-test-01
+      - run:
           name: Install dependencies
           command: |
-            pip install docker-compose==1.15.0
+            cd video-server-app-test-01
+            sudo apt-get update
+            sudo apt-get install docker-compose
+            sudo apt-get install docker
+            docker-compose build
+            docker-compose up
       - run:
           name: Install video server app
           command: |
-            git clone https://github.com/bngoc1307/video-server-app
-            cd video-server-app
-            docker-compose up -d
-            sleep 15
-      - run:
-          name: Run tests
-          command: |
-            pip uninstall -y urllib3
-            pip install urllib3
-            pip uninstall -y chardet
-            pip install chardet
-            pip install pytest requests
-            git clone https://github.com/bngoc1307/Nhom04_CCPTPM
-            cd Nhom04_CCPTPM
-            pytest
-
-  build-and-test:
-      docker:
-        - image: cimg/python:3.11.0
-      steps:
-        - checkout
-
-
+            echo "OK nhe"
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
