@@ -6,7 +6,7 @@ import binascii
 import os
 from type import *
 
-class TestRetrieveProjectDetails:
+class TestProject:
 
     @pytest.mark.skip
     def get_all_projects(self):
@@ -183,6 +183,17 @@ class TestRetrieveProjectDetails:
         self.delete_project(_id_dup)
         print(f'3. deleted ok')
 
+    def __waitingCondition(self, condition_func):
+        import time
+        begin = time.time()
+        while time.time() - begin < TIMEOUT_CHECK_TEST_CASE:
+            try:
+                if condition_func():
+                    return True
+            except:
+                time.sleep(0.1)
+                pass
+
     def test_05(self):
         """
             `Test activity diagram: RETRIEVE PROJECT DETAILS`
@@ -207,8 +218,11 @@ class TestRetrieveProjectDetails:
         print(resp_edit)
         assert resp_edit['processing'] == True
 
-        import time
-        time.sleep(5)
+        def condition_func():
+            resp = self.retrieve_project(_id_dup)
+            return resp['metadata']['width'] == 452
+        
+        self.__waitingCondition(condition_func)
 
         # truy xuất thông tin project
         resp_project = self.retrieve_project(_id_dup)
