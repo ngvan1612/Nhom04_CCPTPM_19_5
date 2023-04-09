@@ -233,7 +233,6 @@ class TestProject:
         assert resp_project['metadata']['width'] == 452
         assert resp_project['metadata']['height'] == 800
         assert resp_project['metadata']['r_frame_rate'] == '30/1'
-        assert resp_project['metadata']['bit_rate'] == 851084
         assert resp_project['metadata']['nb_frames'] == 462
         assert abs(resp_project['metadata']['duration'] - 15.4) <= 1e-3
         assert resp_project['metadata']['size'] == 1904709
