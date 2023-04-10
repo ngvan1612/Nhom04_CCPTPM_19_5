@@ -1,4 +1,4 @@
-BASE_URL = 'http://27.71.26.121:5050'
+BASE_URL = 'http://localhost:5050'
 
 TIMEOUT_CHECK_TEST_CASE = 300 # 300 giay
 

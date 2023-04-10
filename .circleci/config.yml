@@ -22,6 +22,10 @@ jobs:
           command: |
             python -m pytest test_create_project.py
       - run:
+          name: Test danh sách project
+          command: |
+            python -m pytest test_list_projects.py
+      - run:
           name: Test xóa project
           command: |
             python -m pytest test_delete_project.py
