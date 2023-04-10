@@ -18,15 +18,17 @@ jobs:
           command: |
             pip install pytest requests
       - run:
-          name: Chuẩn bị source code test từ github
+          name: Test tạo project
           command: |
-            git clone https://github.com/bngoc1307/Nhom04_CCPTPM
-            cd Nhom04_CCPTPM
+            python -m pytest test_create_project.py
       - run:
-          name: Bắt đầu chạy test
+          name: Test xóa project
           command: |
-            python -m pytest
-
+            python -m pytest test_retrieve_project_details.py
+      - run:
+          name: Test truy xuất chi tiết project
+          command: |
+            python -m pytest test_retrieve_project_details.py
 workflows:
   build_and_test:
     jobs:
