@@ -28,11 +28,11 @@ class TestProject:
 
     @pytest.mark.skip
     def delete_project(self, project_id):
-        try:
-            requests.delete(URL_DELETE_PROJECT + str(project_id))
-            print(f"DEL PROJECT {project_id} SUCCESSFULLY")
-        except Exception as e:
-            print(f"DEL PROJECT ERROR: {e}")
+        resp = requests.delete(URL_DELETE_PROJECT + str(project_id))
+        if resp.status_code == 204:
+            return True
+        else:
+            return json.loads(resp.text)
 
     @pytest.mark.skip
     def create_project(self, video: str) -> json:
