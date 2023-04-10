@@ -15,22 +15,18 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Clone git
+          name: Cài đặt pytest
           command: |
-            git clone https://github.com/ngthvan1612/video-server-app-test-01
+            pip install pytest
       - run:
-          name: Run test
+          name: Chuẩn bị source code test từ github
           command: |
-            cd video-server-app-test-01
-            sudo apt-get update
-            sudo apt-get install docker-compose
-            sudo apt-get install docker
-            docker-compose build
-            docker-compose up & while [[ `sudo docker container inspect -f '{{.State.Running}}' video-server-test-01_default` == "true" ]]; do echo "waiting"; sleep 1; done; sudo docker kill $(docker ps -q);
+            git clone https://github.com/bngoc1307/Nhom04_CCPTPM
+            cd Nhom04_CCPTPM
       - run:
-          name: Finish testing
+          name: Bắt đầu chạy test
           command: |
-            echo "OK nhe"
+            python -m pytest
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
