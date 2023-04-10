@@ -101,3 +101,31 @@ class TestCreateProject:
         # xóa project
         self.delete_project(_id)
         print(f'3. deleted ok')
+    
+    def test_03(self):
+        """
+            `Test activity diagram: CREATE PROJECT`
+            1. Tạo một project upload video tên là `p-02.mp4`
+            2. Kiểm tra thông tin project
+            3. Xóa project
+        """
+        # tạo project
+        resp = self.create_project('test_data/p-01.mp4')
+        _id = resp['_id']
+        print(f'1. created {_id}')
+
+        # kiểm tra thông tin khớp với p-01.mp4
+        assert resp['metadata']['codec_name'] == 'h264'
+        assert resp['metadata']['width'] == 848
+        assert resp['metadata']['height'] == 480
+        assert resp['metadata']['r_frame_rate'] == '30/1'
+        assert resp['metadata']['bit_rate'] == 1467581
+        assert resp['metadata']['nb_frames'] == 1117
+        assert abs(resp['metadata']['duration'] - 37.233333) <= 1e-3
+        assert resp['metadata']['size'] == 8037827
+
+        print(f'2. checked ok')
+                
+        # xóa project
+        self.delete_project(_id)
+        print(f'3. deleted ok')
