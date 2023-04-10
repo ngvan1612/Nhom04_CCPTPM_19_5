@@ -1,38 +1,33 @@
 version: 2.1
 
-# Define the jobs we want to run for this project
 jobs:
   build:
     docker:
       - image: cimg/base:2023.03
     steps:
       - checkout
-      - run: echo "this is the build job"
-  prepare-rabbit:
+      - run: echo "!!!"
+  test-video-server-app:
     docker:
       - image: cimg/python:3.7
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Clone git
+          name: Cài đặt pytest
           command: |
-            git clone https://github.com/ngthvan1612/video-server-app-test-01
+            pip install pytest requests
       - run:
-          name: Install dependencies
+          name: Chuẩn bị source code test từ github
           command: |
-            cd video-server-app-test-01
-            sudo apt-get update
-            sudo apt-get install docker-compose
-            sudo apt-get install docker
-            docker-compose build
-            docker-compose up
+            git clone https://github.com/bngoc1307/Nhom04_CCPTPM
+            cd Nhom04_CCPTPM
       - run:
-          name: Install video server app
+          name: Bắt đầu chạy test
           command: |
-            echo "OK nhe"
-# Orchestrate our job run sequence
+            python -m pytest
+
 workflows:
   build_and_test:
     jobs:
-      - prepare-rabbit
+      - test-video-server-app
