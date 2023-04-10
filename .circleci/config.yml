@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Cài đặt pytest
           command: |
-            pip install pytest
+            pip install pytest requests
       - run:
           name: Chuẩn bị source code test từ github
           command: |
