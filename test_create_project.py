@@ -1,7 +1,6 @@
 import requests
 import json
 from type import *
-from test_abstract import TestAbstract
 import pytest
 import random
 
