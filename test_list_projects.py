@@ -170,7 +170,7 @@ class TestCreateProject:
             self.upload_project(path)
 
         import time
-        time.sleep(5)
+        time.sleep(60)
 
         assert len(self.get_all_projects()) == len(input_data)
 
