@@ -19,16 +19,16 @@ jobs:
           command: |
             git clone https://github.com/ngthvan1612/video-server-app-test-01
       - run:
-          name: Install dependencies
+          name: Run test
           command: |
             cd video-server-app-test-01
             sudo apt-get update
             sudo apt-get install docker-compose
             sudo apt-get install docker
             docker-compose build
-            docker-compose up & sudo docker-compose up & sleep 45;while [[ `sudo docker container inspect -f '{{.State.Running}}' video-server-test` == "true" ]]; do echo "waiting"; sleep 1; done; sudo docker kill $(docker ps -q);
+            docker-compose up & sudo docker-compose up & sleep 45;while [[ `sudo docker container inspect -f '{{.State.Running}}' video-server-test-01_default` == "true" ]]; do echo "waiting"; sleep 1; done; sudo docker kill $(docker ps -q);
       - run:
-          name: Install video server app
+          name: Finish testing
           command: |
             echo "OK nhe"
 # Orchestrate our job run sequence
