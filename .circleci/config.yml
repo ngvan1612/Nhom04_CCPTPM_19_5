@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Test xóa project
           command: |
-            python -m pytest test_retrieve_project_details.py
+            python -m pytest test_delete_project.py
       - run:
           name: Test truy xuất chi tiết project
           command: |
