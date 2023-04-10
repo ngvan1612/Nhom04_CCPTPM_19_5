@@ -126,7 +126,12 @@ class TestCreateProject:
         import time
         time.sleep(1)
 
-        assert len(self.get_all_projects()) == len(input_data)
+        projects = self.get_all_projects()
+
+        for i, path in enumerate(input_data):
+            self.assert_data_by_ordering(projects[i], path)
+
+        assert len(projects) == len(input_data)
 
         # xóa toàn bộ project test
         self.delete_all_projects()
@@ -148,7 +153,11 @@ class TestCreateProject:
         import time
         time.sleep(1)
 
-        assert len(self.get_all_projects()) == len(input_data)
+
+        projects = self.get_all_projects()
+
+        for i, path in enumerate(input_data):
+            self.assert_data_by_ordering(projects[i], path)
 
         # xóa toàn bộ project test
         self.delete_all_projects()
@@ -172,7 +181,11 @@ class TestCreateProject:
         import time
         time.sleep(60)
 
-        assert len(self.get_all_projects()) == len(input_data)
+        
+        projects = self.get_all_projects()
+
+        for i, path in enumerate(input_data):
+            self.assert_data_by_ordering(projects[i], path)
 
         # xóa toàn bộ project test
         self.delete_all_projects()
