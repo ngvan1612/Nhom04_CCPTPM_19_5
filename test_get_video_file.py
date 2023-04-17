@@ -88,5 +88,8 @@ class TestGetVideoFile:
             _id_random = result.decode('utf-8')
 
         resp_getVideo = requests.get(URL_GET_VIDEO + _id_random + 'raw/video')
+        json.loads(resp_getVideo.text)
+        assert resp_getVideo['error'] == 'Project with id \''+ _id_random +'\' was not found.'
 
-        
+    def test_05(self):
+        return
