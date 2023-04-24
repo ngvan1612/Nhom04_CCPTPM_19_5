@@ -78,11 +78,11 @@ class TestProject:
         resp = requests.get(
             URL_GET_VIDEO + str(project_id) + '/raw/video'
         )
-        return  json.loads(resp.text)
+        return  resp.content, resp.status_code
     
     def test_01(self):
         """
-            `Test activity diagram: RETRIEVE PROJECT DETAILS`
+            `Test activity diagram: DELETE PROJECT DETAILS`
             1. Tạo một project upload video tên là `p-01.mp4`
             2. Xóa project
             3. Kiểm tra xem project đã bị xóa hay chưa
@@ -98,35 +98,36 @@ class TestProject:
 
         # truy xuất thông tin project
         resp_project = self.retrieve_project(_id)
-        print(resp_project)
 
         assert resp_project['error'] == 'Project with id \''+ _id +'\' was not found.'
 
-        resp_get_video = self.get_video(_id)
-        print(resp_get_video)
+        resp_get_video, statusCode = self.get_video(_id)
+        resp_get_video=json.loads(resp_get_video.decode("utf-8"))
 
-        assert resp_get_video['error'] == 'Project with id \''+ _id +'\' was not found.'
+        assert resp_get_video["error"] == 'Project with id \''+ _id +'\' was not found.'
 
     #TODO: fix this test
     def test_02(self):
         """
-            `Test activity diagram: RETRIEVE PROJECT DETAILS`
+            `Test activity diagram: DELETE PROJECT DETAILS`
             1. Truy xuất thông tin project với id không tồn tại
             2. Kiểm tra xem có thông báo lỗi hay không
         """
         result = binascii.b2a_hex(os.urandom(10))
-        _id = result.decode('utf-8')    
-        print(_id)    
+        _id = result.decode('utf-8') 
 
         resp_project = self.delete_project(_id)
-        print(resp_project)
-        assert 1 == 1
 
-        # assert resp_project['error'] == 'Project with id \''+ _id +'\' was not found.'
+        assert resp_project['error'] == 'Project with id \''+ _id +'\' was not found.'
+
+        resp_get_video, statusCode = self.get_video(_id)
+        resp_get_video=json.loads(resp_get_video.decode("utf-8"))
+
+        assert resp_get_video["error"] == 'Project with id \''+ _id +'\' was not found.'
 
     def test_03(self):
         """
-            `Test activity diagram: RETRIEVE PROJECT DETAILS`
+            `Test activity diagram: DELETE PROJECT DETAILS`
             1. Tạo một project upload video tên là `p-01.mp4`
             2. Duplicate project vừa tạo
             3. Xóa project gốc
@@ -150,12 +151,16 @@ class TestProject:
         resp_retrieve_id_duplicate = self.retrieve_project(_id_duplicate)
         assert resp_retrieve_id_duplicate['_id'] == _id_duplicate
 
-        self.delete_project(_id_duplicate)
+        resp_get_video, statusCode = self.get_video(_id_create)
+        resp_get_video=json.loads(resp_get_video.decode("utf-8"))
 
+        assert resp_get_video["error"] == 'Project with id \''+ _id_create +'\' was not found.'
+
+        self.delete_project(_id_duplicate)
 
     def test_04(self):
         """
-            `Test activity diagram: RETRIEVE PROJECT DETAILS`
+            `Test activity diagram: DELETE PROJECT DETAILS`
             1. Tạo một project upload video tên là `p-01.mp4`
             2. Duplicate project vừa tạo
             3. Xóa project bản sao
@@ -176,7 +181,10 @@ class TestProject:
         resp_retrieve_id_create = self.retrieve_project(_id_create)
         assert resp_retrieve_id_create['_id'] == _id_create
 
-        #TODO: fix this test: add get video
+        resp_get_video, statusCode = self.get_video(_id_duplicate)
+        resp_get_video=json.loads(resp_get_video.decode("utf-8"))
+
+        assert resp_get_video["error"] == 'Project with id \''+ _id_duplicate +'\' was not found.'
 
         resp_retrieve_id_duplicate = self.retrieve_project(_id_duplicate)
         assert resp_retrieve_id_duplicate['error'] == 'Project with id \''+ _id_duplicate +'\' was not found.'
@@ -185,7 +193,7 @@ class TestProject:
 
     def test_05(self):
         """
-            `Test activity diagram: RETRIEVE PROJECT DETAILS`
+            `Test activity diagram: DELETE PROJECT DETAILS`
             1. Tạo một project upload video tên là `p-01.mp4`
             2. Duplicate project vừa tạo
             3. Duplicate project bản sao
@@ -214,7 +222,10 @@ class TestProject:
         resp_retrieve_version_2 = self.retrieve_project(_id_duplicate_version_2)
         assert resp_retrieve_version_2['_id'] == _id_duplicate_version_2
 
-        #TODO: fix this test: add get video
+        resp_get_video, statusCode = self.get_video(_id_duplicate_version_1)
+        resp_get_video=json.loads(resp_get_video.decode("utf-8"))
+
+        assert resp_get_video["error"] == 'Project with id \''+ _id_duplicate_version_1 +'\' was not found.'
 
         resp_retrieve_id_duplicate = self.retrieve_project(_id_duplicate_version_1)
         assert resp_retrieve_id_duplicate['error'] == 'Project with id \''+ _id_duplicate_version_1 +'\' was not found.'
