@@ -3,6 +3,7 @@ import json
 from type import *
 import pytest
 import random
+from assertions import *
 
 class TestCreateProject:
 
@@ -127,6 +128,7 @@ class TestCreateProject:
         time.sleep(1)
 
         projects = self.get_all_projects()
+            
 
         for i, path in enumerate(input_data):
             self.assert_data_by_ordering(projects[i], path)
@@ -181,8 +183,13 @@ class TestCreateProject:
         import time
         time.sleep(60)
 
+        projects = []
+
+        def phase_01():
+            projects = self.get_all_projects()
+            return len(projects) == len(input_data)
         
-        projects = self.get_all_projects()
+        assert_with_time_out(phase_01, 300)
 
         for i, path in enumerate(input_data):
             self.assert_data_by_ordering(projects[i], path)
