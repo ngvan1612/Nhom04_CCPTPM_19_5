@@ -189,6 +189,9 @@ class TestCreateProject:
             projects = self.get_all_projects()
             return len(projects) == len(input_data)
         
+        projects = self.get_all_projects()
+        print(projects)
+        
         assert_with_time_out(phase_01, 300)
 
         for i, path in enumerate(input_data):
