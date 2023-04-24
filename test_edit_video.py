@@ -6,7 +6,6 @@ import time
 import binascii
 import os
 from type import *
-from hash_video import *
 class TestEditVideo:
     @pytest.mark.skip
     def get_all_projects(self):
@@ -185,7 +184,7 @@ class TestEditVideo:
         print(resp_project)
 
         while (True):
-            video, status_code = self.get_video(_id_dup)
+            video, status_code = self.get_video( )
             time.sleep(0.5)
             if status_code == 200:
                 break
