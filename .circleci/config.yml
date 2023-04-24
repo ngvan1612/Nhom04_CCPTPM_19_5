@@ -18,6 +18,10 @@ jobs:
           command: |
             pip install pytest requests
       - run:
+          name: Cài đặt hashlib
+          command: |
+            pip install pytest hashlib
+      - run:
           name: Test tạo project
           command: |
             python -m pytest test_create_project.py
