@@ -103,7 +103,7 @@ class TestEditVideo:
 
     def test_02(self):
         """
-            `Test activity diagram: RETRIEVE PROJECT DETAILS`
+            `Test activity diagram: EDIT PROJECT DETAILS`
             1. Edit project với id không tồn tại
             2. Kiểm tra xem có thông báo lỗi hay không
         """
