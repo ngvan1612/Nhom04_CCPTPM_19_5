@@ -1,4 +1,4 @@
-BASE_URL = 'http://27.71.26.121:5050'
+BASE_URL = 'http://ec2-54-234-163-25.compute-1.amazonaws.com:5050'
 
 TIMEOUT_CHECK_TEST_CASE = 300 # 300 giay
 
@@ -9,3 +9,4 @@ URL_RETRIEVE_PROJECT = BASE_URL + '/projects/'
 URL_DUPLICATE_PROJECT = BASE_URL + '/projects/' 
 URL_EDIT_PROJECT = BASE_URL + '/projects/' 
 URL_GET_VIDEO = BASE_URL + '/projects/' 
+URL_CAPTURE_PREVIEW_THUMBNAIL = BASE_URL + '/projects/' 
