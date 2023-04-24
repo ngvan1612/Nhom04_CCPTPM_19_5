@@ -33,6 +33,11 @@ jobs:
           name: Test truy xuất chi tiết project
           command: |
             python -m pytest test_retrieve_project_details.py
+      - run:
+          name: Test nhân bản project
+          command: |
+            python -m pytest test_duplicate.py
+
 workflows:
   build_and_test:
     jobs:
