@@ -37,7 +37,10 @@ jobs:
           name: Test nhân bản project
           command: |
             python -m pytest test_duplicate.py
-
+      - run:
+          name: Test Get Video File 
+          command: |
+            python -m pytest test_get_video_file.py
 workflows:
   build_and_test:
     jobs:
