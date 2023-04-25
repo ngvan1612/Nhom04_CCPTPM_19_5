@@ -3,6 +3,9 @@ import requests
 import json
 import random
 import time
+import urllib3
+from pytube import YouTube
+import youtube_dl
 from type import *
 
 class TestProject:
@@ -73,16 +76,34 @@ class TestProject:
         return  resp.content, resp.status_code
 
     @pytest.mark.skip
-    def __waitingCondition(self, condition_func):
-        import time
-        begin = time.time()
-        while time.time() - begin < TIMEOUT_CHECK_TEST_CASE:
-            try:
-                if condition_func():
-                    return True
-            except:
-                time.sleep(1)
-                pass
+    def get_preview_thumbnail(self, project_id) -> json:
+        resp = requests.get(
+            URL_GET_VIDEO + str(project_id) + '/raw/thumbnails/preview'
+        )
+        return  resp.content, resp.status_code
+    
+    @pytest.mark.skip
+    def capture_a_thumbnail_for_preview(self, project_id, position_param, crop_param, rotate_param) -> json:
+        url = URL_GET_VIDEO + str(project_id) + '/thumbnails?type=preview'
+        is_set = False
+
+        
+        if crop_param is not None:
+            crop_param = crop_param.replace(',', '%2C')
+        
+        if crop_param is None and rotate_param is None and is_set is False:
+            url = url + '&position=' + str(position_param)
+            is_set = True
+        if crop_param is None and is_set is False:
+            url = url + '&position=' + str(position_param) + '&rotate=' + str(rotate_param)
+            is_set = True
+        elif rotate_param is None and is_set is False:
+            url = url + '&position=' + str(position_param) + '&crop=' + str(crop_param)
+            is_set = True
+        elif is_set is False:
+            url = url + '&position=' + str(position_param) + '&crop=' + str(crop_param) + '&rotate=' + str(rotate_param)
+        resp = requests.get(url)
+        return  json.loads(resp.text), resp.status_code
 
 def getVideoEdit01():
     testProj = TestProject()
@@ -250,7 +271,50 @@ def getVideoEdit04():
     testProj.delete_project(_id_dup)
     print(f'3. deleted ok')
 
+def getVideoEdit05():
+    url = 'https://www.youtube.com/watch?v=grAZ5VVKnR0'
+    path = 'test_data/test_get_video.mp4'
+
+    # yt = YouTube("https://www.youtube.com/shorts/grAZ5VVKnR0")
+    # yt = yt.get('mp4', '720p')
+    # yt.download('test_data/test_get_video.mp4')
+
+    # video = YouTube(url)
+    # video_streams = video.streams
+    # print(video_streams)
+    ydl_opts = {}
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download(['https://www.youtube.com/watch?v=grAZ5VVKnR0'])
+
+def getThumnail_01():
+    testProj = TestProject()
+    resp = testProj.create_project('test_data/p-06.mp4')
+    _id_create = resp['_id']
+    print(f'1. created {_id_create}')
+
+    while True:
+        resp_project_1, status_code = testProj.capture_a_thumbnail_for_preview(_id_create, 10, '200,100,400,360', -180)
+        print(resp_project_1)
+        print(status_code)
+        time.sleep(0.5)
+        if status_code == 202:
+            break
+    
+    while True:
+        thumbnail_1, status_code = testProj.get_preview_thumbnail(_id_create)
+        time.sleep(0.5)
+        if status_code == 200:
+            break
+
+    with open('test_data/thumbnail-01.jpg', 'wb') as f:
+        f.write(thumbnail_1)
+
+    testProj.delete_project(_id_create)
+    print(f'3. deleted ok')
+
 # getVideoEdit01()
 # getVideoEdit02()
 # getVideoEdit03()
 # getVideoEdit04()
+# getVideoEdit05()
+getThumnail_01()

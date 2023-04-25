@@ -18,10 +18,6 @@ jobs:
           command: |
             pip install pytest requests
       - run:
-          name: Cài đặt hashlib
-          command: |
-            pip install Cython hashlib
-      - run:
           name: Test tạo project
           command: |
             python -m pytest test_create_project.py
@@ -42,7 +38,11 @@ jobs:
           command: |
             python -m pytest test_duplicate.py
       - run:
-          name: Test chỉnh sử video
+          name: Test tạo preview thumbnail
+          command: |
+            python -m pytest test_capture_a_thumbnail_for_preview.py
+      - run:
+          name: Test chỉnh sửa video
           command: |
             python -m pytest test_edit_video.py
 
