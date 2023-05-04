@@ -1,4 +1,3 @@
 *.pyc
 .pytest_cache/
 __pycache__/test_create_project.cpython-310-pytest-6.2.5.pyc
-*.pyc
