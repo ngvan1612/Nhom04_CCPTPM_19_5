@@ -165,6 +165,82 @@ class TestCreateProject:
         self.delete_all_projects()
 
     def test_03(self):
+        """
+            Load test
+        """
+        # xóa toàn bộ project trước
+        self.delete_all_projects()
+
+        input_data = [
+            'test_data/p-01.mp4',
+            'test_data/p-02.mp4',
+            'test_data/p-03.mp4'
+        ]
+
+        # upload 30 video
+        _input_data = input_data * 10
+
+        for path in input_data:
+            self.upload_project(path)
+
+        projects = []
+
+        def phase_01():
+            projects = self.get_all_projects()
+            return len(projects) == len(input_data)
+        
+        projects = self.get_all_projects()
+        print(projects)
+        
+        assert_with_time_out(phase_01, 1000)
+
+        for i, path in enumerate(input_data):
+            self.assert_data_by_ordering(projects[i], path)
+
+        # xóa toàn bộ project test
+        self.delete_all_projects()
+
+    def test_04(self):
+        """
+            Load test
+        """
+        # xóa toàn bộ project trước
+        self.delete_all_projects()
+
+        # upload 10 video
+        input_data = [
+            'test_data/p-01.mp4',
+            'test_data/p-02.mp4'
+        ]
+
+        _input_data = input_data * 5
+
+        for path in input_data:
+            self.upload_project(path)
+
+        import time
+
+        projects = []
+
+        def phase_01():
+            projects = self.get_all_projects()
+            return len(projects) == len(input_data)
+        
+        projects = self.get_all_projects()
+        print(projects)
+        
+        assert_with_time_out(phase_01, 500)
+
+        for i, path in enumerate(input_data):
+            self.assert_data_by_ordering(projects[i], path)
+
+        # xóa toàn bộ project test
+        self.delete_all_projects()
+
+    def test_05(self):
+        """
+            Load test
+        """
         # xóa toàn bộ project trước
         self.delete_all_projects()
 
@@ -172,16 +248,13 @@ class TestCreateProject:
         input_data = [
             'test_data/p-01.mp4',
             'test_data/p-02.mp4',
-            'test_data/p-03.mp4',
-            'test_data/p-04.mp4',
-            'test_data/p-05.mp4',
+            'test_data/p-03.mp4'
         ]
 
         for path in input_data:
             self.upload_project(path)
 
         import time
-        time.sleep(60)
 
         projects = []
 
