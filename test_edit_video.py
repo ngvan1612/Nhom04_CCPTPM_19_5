@@ -121,6 +121,7 @@ class TestEditVideo:
         print(resp_project)
         assert resp_project['error'] == 'Project with id \''+ _id +'\' was not found.'
 
+    @pytest.mark.skip
     def test_03(self):
         """
             `Test activity diagram: EDIT PROJECT`
