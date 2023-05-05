@@ -201,6 +201,7 @@ class TestEditVideo:
 
         assert video == video2
 
+
     @pytest.mark.skip
     def test_05(self):
         """
