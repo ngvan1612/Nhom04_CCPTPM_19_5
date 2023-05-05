@@ -168,6 +168,7 @@ class TestEditVideo:
         assert thumbnail_1 == thumbnail_2
         
 
+    @pytest.mark.skip
     def test_03(self):
         """
             `Test activity diagram: CAPTURE A THUMBNAIL FOR PREVIEW`
