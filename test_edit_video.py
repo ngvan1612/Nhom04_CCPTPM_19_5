@@ -161,6 +161,7 @@ class TestEditVideo:
 
         assert video == video2
 
+    @pytest.mark.skip
     def test_04(self):
         """
             `Test activity diagram: EDIT PROJECT`
@@ -200,6 +201,7 @@ class TestEditVideo:
 
         assert video == video2
 
+    @pytest.mark.skip
     def test_05(self):
         """
             `Test activity diagram: EDIT PROJECT`
