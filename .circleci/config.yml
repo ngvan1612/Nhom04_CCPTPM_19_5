@@ -124,6 +124,35 @@ jobs:
           path: test-results/thumbnail-timeline/report.html
 
 workflows:
-  build_and_test:
+  video_server_test_pipeline:
     jobs:
+      - build
+      - prepare-report-directory:
+          requires:
+            - build
+      - test-thumbnail-timeline:
+      - test-create-project:
+          requires:
+            - prepare-report-directory
+      - test-list-projects:
+          requires:
+            - prepare-report-directory
+      - test-delete-project:
+          requires:
+            - prepare-report-directory
+      - test-retrieve-project:
+          requires:
+            - prepare-report-directory
       - test-video-server-app
+      - test-duplicate-projects:
+          requires:
+            - prepare-report-directory
+      - test-preview-thumbnail:
+          requires:
+            - prepare-report-directory
+      - test-timeline-thumbnail:
+          requires:
+            - prepare-report-directory
+      - test-edit-video:
+          requires:
+            - prepare-report-directory
