@@ -37,6 +37,8 @@ jobs:
             python -m pytest test_create_project.py --junitxml=test-results/junit.xml
       - store_test_results:
           path: test-results
+      - store_artifacts:
+          path: test-results
   
   test-list-projects:
     docker: 
