@@ -6,7 +6,7 @@ commands:
       - run:
           name: Cài đặt python package
           command: |
-            pip install pytest requests opencv-python pytest-html
+            pip install pytest requests opencv-python pytest-html 
 
 jobs:
   build:
