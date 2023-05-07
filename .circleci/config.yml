@@ -25,7 +25,85 @@ jobs:
           command: |
             mkdir -p test-results/thumbnail-timeline
 
-  test-thumbnail-timeline:
+  test-create-project:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test tạo project
+          command: |
+            python -m pytest test_create_project.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
+  
+  test-list-projects:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test danh sách project
+          command: |
+            python -m pytest test_list_projects.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
+
+  test-delete-project:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test xóa project
+          command: |
+            python -m pytest test_delete_project.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
+
+  test-retrieve-project:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test truy xuất chi tiết project
+          command: |
+            python -m pytest test_retrieve_project_details.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
+
+  test-duplicate-projects:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test nhân bản project
+          command: |
+            python -m pytest test_duplicate.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
+
+  test-preview-thumbnail:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test tạo preview thumbnail
+          command: |
+            python -m pytest test_capture_a_thumbnail_for_preview.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
+
+  test-timeline-thumbnail:
     docker: 
       - image: cimg/python:3.7
     steps:
@@ -38,48 +116,18 @@ jobs:
       - store_test_results:
           path: test-results/thumbnail-timeline
 
-  test-video-server-app:
-    docker:
+  test-edit-video:
+    docker: 
       - image: cimg/python:3.7
     steps:
       - checkout
-      - setup_remote_docker
-      - run:
-          name: Cài đặt pytest
-          command: |
-            pip install pytest requests opencv-python
-      - run:
-          name: Test tạo project
-          command: |
-            python -m pytest test_create_project.py
-      - run:
-          name: Test danh sách project
-          command: |
-            python -m pytest test_list_projects.py
-      - run:
-          name: Test xóa project
-          command: |
-            python -m pytest test_delete_project.py
-      - run:
-          name: Test truy xuất chi tiết project
-          command: |
-            python -m pytest test_retrieve_project_details.py
-      - run:
-          name: Test nhân bản project
-          command: |
-            python -m pytest test_duplicate.py
-      - run:
-          name: Test tạo preview thumbnail
-          command: |
-            python -m pytest test_capture_a_thumbnail_for_preview.py
-      - run:
-          name: Test tạo timeline thumbnail
-          command: |
-            python -m pytest test_capture_a_thumbnail_for_timeline.py
+      - install_python_package
       - run:
           name: Test chỉnh sửa video
           command: |
             python -m pytest test_edit_video.py
+      - store_test_results:
+          path: test-results/thumbnail-timeline
 
 workflows:
   video_server_test_pipeline:
@@ -88,7 +136,29 @@ workflows:
       - prepare-report-directory:
           requires:
             - build
-      - test-thumbnail-timeline:
+      - test-create-project:
           requires:
             - prepare-report-directory
-      - test-video-server-app
+      - test-list-projects:
+          requires:
+            - prepare-report-directory
+      - test-delete-project:
+          requires:
+            - prepare-report-directory
+      - test-retrieve-project:
+          requires:
+            - prepare-report-directory
+      - test-duplicate-projects:
+          requires:
+            - prepare-report-directory
+      - test-preview-thumbnail:
+          requires:
+            - prepare-report-directory
+      - test-timeline-thumbnail:
+          requires:
+            - prepare-report-directory
+      - test-edit-video:
+          requires:
+            - prepare-report-directory
+
+
