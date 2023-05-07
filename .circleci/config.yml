@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Test tạo project
           command: |
-            python -m pytest test_create_project.py --html=test-results/report.html
+            python -m pytest test_create_project.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
   
@@ -47,7 +47,7 @@ jobs:
       - run:
           name: Test danh sách project
           command: |
-            python -m pytest test_list_projects.py --html=test-results/report.html
+            python -m pytest test_list_projects.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -60,7 +60,7 @@ jobs:
       - run:
           name: Test xóa project
           command: |
-            python -m pytest test_delete_project.py --html=test-results/report.html
+            python -m pytest test_delete_project.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Test truy xuất chi tiết project
           command: |
-            python -m pytest test_retrieve_project_details.py --html=test-results/report.html
+            python -m pytest test_retrieve_project_details.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -86,7 +86,7 @@ jobs:
       - run:
           name: Test nhân bản project
           command: |
-            python -m pytest test_duplicate.py --html=test-results/report.html
+            python -m pytest test_duplicate.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -99,7 +99,7 @@ jobs:
       - run:
           name: Test tạo preview thumbnail
           command: |
-            python -m pytest test_capture_a_thumbnail_for_preview.py --html=test-results/report.html
+            python -m pytest test_capture_a_thumbnail_for_preview.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -112,7 +112,7 @@ jobs:
       - run:
           name: Test tạo timeline thumbnail
           command: |
-            python -m pytest test_capture_a_thumbnail_for_timeline.py --html=test-results/report.html
+            python -m pytest test_capture_a_thumbnail_for_timeline.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -125,7 +125,7 @@ jobs:
       - run:
           name: Test chỉnh sửa video
           command: |
-            python -m pytest test_edit_video.py --html=test-results/report.html
+            python -m pytest test_edit_video.py  -v -s --html=test-results/report.html
       - store_artifacts:
           path: test-results
 
@@ -161,7 +161,6 @@ workflows:
             - test-duplicate-projects
             - test-preview-thumbnail
             - test-timeline-thumbnail
-            - prepare-report-directory
       - test-edit-video:
           requires:
             - test-list-projects
