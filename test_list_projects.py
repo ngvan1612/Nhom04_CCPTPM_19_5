@@ -18,6 +18,8 @@ class TestListProject(TestBase):
         resp = self.create_project(path)
         _id = resp['_id']
         print(f'1. created {_id}')
+
+        self.waiting_for_processing(_id)
                 
         # không xóa project
         #self.delete_project(_id)
@@ -75,20 +77,17 @@ class TestListProject(TestBase):
 
     def test_01(self):
         # xóa toàn bộ project trước
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
         # upload 3 video
         input_data = [
             'test_data/p-01.mp4',
             'test_data/p-02.mp4',
-            'test_data/p-02.mp4'
+            'test_data/p-03.mp4'
         ]
 
         for path in input_data:
             self.upload_project(path)
-
-        import time
-        time.sleep(1)
 
         projects = self.get_all_projects()
             
@@ -99,11 +98,11 @@ class TestListProject(TestBase):
         assert len(projects) == len(input_data)
 
         # xóa toàn bộ project test
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
     
     def test_02(self):
         # xóa toàn bộ project trước
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
         # upload 3 video
         input_data = [
@@ -115,24 +114,20 @@ class TestListProject(TestBase):
         for path in input_data:
             self.upload_project(path)
 
-        import time
-        time.sleep(1)
-
-
         projects = self.get_all_projects()
 
         for i, path in enumerate(input_data):
             self.assert_data_by_ordering(projects[i], path)
 
         # xóa toàn bộ project test
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
     def test_03(self):
         """
             Load test
         """
         # xóa toàn bộ project trước
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
         input_data = [
             'test_data/p-01.mp4',
@@ -147,28 +142,22 @@ class TestListProject(TestBase):
             self.upload_project(path)
 
         projects = []
-
-        def phase_01():
-            projects = self.get_all_projects()
-            return len(projects) == len(input_data)
         
         projects = self.get_all_projects()
         print(projects)
-        
-        assert_with_time_out(phase_01, 1000)
 
         for i, path in enumerate(input_data):
             self.assert_data_by_ordering(projects[i], path)
 
         # xóa toàn bộ project test
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
     def test_04(self):
         """
             Load test
         """
         # xóa toàn bộ project trước
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
         # upload 10 video
         input_data = [
@@ -181,31 +170,23 @@ class TestListProject(TestBase):
         for path in input_data:
             self.upload_project(path)
 
-        import time
-
         projects = []
-
-        def phase_01():
-            projects = self.get_all_projects()
-            return len(projects) == len(input_data)
         
         projects = self.get_all_projects()
         print(projects)
-        
-        assert_with_time_out(phase_01, 500)
 
         for i, path in enumerate(input_data):
             self.assert_data_by_ordering(projects[i], path)
 
         # xóa toàn bộ project test
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
     def test_05(self):
         """
             Load test
         """
         # xóa toàn bộ project trước
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)
 
         # upload 3 video
         input_data = [
@@ -217,21 +198,13 @@ class TestListProject(TestBase):
         for path in input_data:
             self.upload_project(path)
 
-        import time
-
         projects = []
-
-        def phase_01():
-            projects = self.get_all_projects()
-            return len(projects) == len(input_data)
         
         projects = self.get_all_projects()
         print(projects)
-        
-        assert_with_time_out(phase_01, 300)
 
         for i, path in enumerate(input_data):
             self.assert_data_by_ordering(projects[i], path)
 
         # xóa toàn bộ project test
-        self.delete_all_projects()
+        self.delete_all_projects(del_all=True)

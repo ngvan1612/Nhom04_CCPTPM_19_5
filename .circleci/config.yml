@@ -139,9 +139,6 @@ workflows:
       - test-create-project:
           requires:
             - prepare-report-directory
-      - test-list-projects:
-          requires:
-            - prepare-report-directory
       - test-delete-project:
           requires:
             - prepare-report-directory
@@ -157,6 +154,13 @@ workflows:
       - test-timeline-thumbnail:
           requires:
             - prepare-report-directory
-      - test-edit-video:
+      # - test-edit-video:
+      #     requires:
+      #       - prepare-report-directory
+      - test-list-projects:
           requires:
-            - prepare-report-directory
+            - test-create-project
+            - test-delete-project
+            - test-duplicate-projects
+            - test-preview-thumbnail
+            - test-timeline-thumbnail

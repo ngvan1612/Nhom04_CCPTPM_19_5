@@ -39,24 +39,6 @@ class TestEditVideo(TestBase):
         assert resp.status_code == 200
         j = json.loads(resp.text)
         return j['thumbnails']
-    
-    @pytest.mark.skip
-    def waiting_for_processing(self, project_id):
-        while True:
-            resp = requests.get(URL_LIST_PROJECTS + project_id)
-            assert resp.status_code == 200
-            j = json.loads(resp.text)
-            processing = j['processing']
-            is_processing = False
-            is_processing = is_processing or processing['video']
-            is_processing = is_processing or processing['thumbnail_preview']
-            is_processing = is_processing or processing['thumbnails_timeline']
-
-            if not is_processing:
-                break
-
-            time.sleep(0.25)
-            print('Waiting for ...', project_id, time.time())
 
     @pytest.mark.skip
     def get_video(self, project_id) -> json:
