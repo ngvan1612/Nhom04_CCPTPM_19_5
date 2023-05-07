@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: echo "!!!"
-  prepare-report:
+  prepare-report-directory:
     docker:
       - image: cimg/python:3.7
     steps:
@@ -69,6 +69,13 @@ jobs:
             python -m pytest test_edit_video.py
 
 workflows:
-  chay_test_thay_phung:
+  video_server_test_pipeline:
     jobs:
+      - build
+      - prepare-report-directory:
+          requires:
+            - build
+      - test-thumbnail-timeline:
+          requires:
+            - prepare-report-directory
       - test-video-server-app
