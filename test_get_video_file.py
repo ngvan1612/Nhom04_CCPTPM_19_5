@@ -5,24 +5,13 @@ import json
 import random
 import binascii
 import os
-import time 
+import time
+from base_test import TestBase 
 from type import *
 # from hash_video import *
 
-class TestGetVideoFile:
-    @pytest.mark.skip
-    def create_project(self, video: str) -> json:
+class TestGetVideoFile(TestBase):
 
-        with open(video, 'rb') as f:
-            buffer = f.read()
-        resp = requests.post(
-            url=URL_CREATE_PROJECT,
-            files={
-                'file': (str(random.random()) + '.mp4', buffer, 'video/mp4')
-            }
-        )
-        return json.loads(resp.text)
-    
     @pytest.mark.skip
     def upload_project(self, path):
         """
