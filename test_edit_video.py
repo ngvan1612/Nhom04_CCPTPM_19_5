@@ -152,13 +152,11 @@ class TestEditVideo:
 
         with open('test_data/video-after-edit-03.mp4', 'rb') as file:
             video2 = file.read()
-        # video_hash = hashlib.sha256(video).hexdigest()
-        # video_samp = hashlib.sha256(video2).hexdigest()
 
         self.delete_project(_id_create)
         print(f'3. deleted ok')
 
-        # assert video == video2
+        assert video == video2
 
     def test_04(self):
         """
@@ -191,13 +189,11 @@ class TestEditVideo:
 
         with open('test_data/video-after-edit-04.mp4', 'rb') as file:
             video2 = file.read()
-        # video_hash = hashlib.sha256(video).hexdigest()
-        # video_samp = hashlib.sha256(video2).hexdigest()
 
         self.delete_project(_id_create)
         print(f'3. deleted ok')
 
-        # assert video == video2
+        assert video == video2
 
 
     def test_05(self):
@@ -234,10 +230,8 @@ class TestEditVideo:
 
         with open('test_data/video-after-edit-02.mp4', 'rb') as file:
             video2 = file.read()
-        # video_hash = hashlib.sha256(video).hexdigest()
-        # video_samp = hashlib.sha256(video2).hexdigest()
 
         self.delete_project(_id_create)
         print(f'3. deleted ok')
 
-        # assert video == video2
+        assert video == video2
