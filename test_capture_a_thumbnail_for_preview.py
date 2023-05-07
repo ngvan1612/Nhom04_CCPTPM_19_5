@@ -161,6 +161,7 @@ class TestEditVideo(TestBase):
             time.sleep(0.5)
             if status_code == 200:
                 break
+        print("thumbnail 1: ", thumbnail_1)
 
         while True:
             resp_project_2, status_code2 = self.capture_a_thumbnail_for_preview(_id_create, 11, '200,100,400,360', None)
@@ -176,6 +177,7 @@ class TestEditVideo(TestBase):
             if status_code2 == 200:
                 break
 
+        print("thumbnail 2: ", thumbnail_2)
         self.delete_project(_id_create)
         assert thumbnail_1 != thumbnail_2
         
