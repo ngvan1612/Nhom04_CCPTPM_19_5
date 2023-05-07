@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Cài đặt pytest
           command: |
-            pip install pytest requests
+            pip install pytest requests opencv-python
       - run:
           name: Test tạo project
           command: |
