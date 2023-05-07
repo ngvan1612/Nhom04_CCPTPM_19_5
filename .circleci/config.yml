@@ -42,6 +42,10 @@ jobs:
           command: |
             python -m pytest test_capture_a_thumbnail_for_preview.py
       - run:
+          name: Test tạo timeline thumbnail
+          command: |
+            python -m pytest test_capture_a_thumbnail_for_timeline.py
+      - run:
           name: Test chỉnh sửa video
           command: |
             python -m pytest test_edit_video.py
