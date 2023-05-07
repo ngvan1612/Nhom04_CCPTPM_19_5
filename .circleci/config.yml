@@ -1,7 +1,5 @@
 version: 2.1
 
-<<<<<<< Updated upstream
-=======
 commands:
   install_python_package:
     steps:
@@ -10,7 +8,6 @@ commands:
           command: |
             pip install pytest requests opencv-python pytest-html
 
->>>>>>> Stashed changes
 jobs:
   build:
     docker:
@@ -31,9 +28,6 @@ jobs:
       - run:
           name: Test tạo project
           command: |
-<<<<<<< Updated upstream
-            python -m pytest test_create_project.py
-=======
             python -m pytest test_create_project.py --html=test-results/create-project/report.html
       - store_test_results:
           path: test-results/create-project
@@ -44,13 +38,10 @@ jobs:
     steps:
       - checkout
       - install_python_package
->>>>>>> Stashed changes
       - run:
           name: Test danh sách project
           command: |
             python -m pytest test_list_projects.py
-<<<<<<< Updated upstream
-=======
       - store_test_results:
           path: test-results/thumbnail-timeline/report.html
 
@@ -60,13 +51,10 @@ jobs:
     steps:
       - checkout
       - install_python_package
->>>>>>> Stashed changes
       - run:
           name: Test xóa project
           command: |
             python -m pytest test_delete_project.py
-<<<<<<< Updated upstream
-=======
       - store_test_results:
           path: test-results/thumbnail-timeline/report.html
 
@@ -76,13 +64,10 @@ jobs:
     steps:
       - checkout
       - install_python_package
->>>>>>> Stashed changes
       - run:
           name: Test truy xuất chi tiết project
           command: |
             python -m pytest test_retrieve_project_details.py
-<<<<<<< Updated upstream
-=======
       - store_test_results:
           path: test-results/thumbnail-timeline/report.html
 
@@ -92,13 +77,10 @@ jobs:
     steps:
       - checkout
       - install_python_package
->>>>>>> Stashed changes
       - run:
           name: Test nhân bản project
           command: |
             python -m pytest test_duplicate.py
-<<<<<<< Updated upstream
-=======
       - store_test_results:
           path: test-results/thumbnail-timeline/report.html
 
@@ -108,13 +90,10 @@ jobs:
     steps:
       - checkout
       - install_python_package
->>>>>>> Stashed changes
       - run:
           name: Test tạo preview thumbnail
           command: |
             python -m pytest test_capture_a_thumbnail_for_preview.py
-<<<<<<< Updated upstream
-=======
       - store_test_results:
           path: test-results/thumbnail-timeline/report.html
 
@@ -137,16 +116,12 @@ jobs:
     steps:
       - checkout
       - install_python_package
->>>>>>> Stashed changes
       - run:
           name: Test chỉnh sửa video
           command: |
             python -m pytest test_edit_video.py
-<<<<<<< Updated upstream
-=======
       - store_test_results:
           path: test-results/thumbnail-timeline/report.html
->>>>>>> Stashed changes
 
 workflows:
   build_and_test:
