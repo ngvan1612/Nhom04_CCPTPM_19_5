@@ -27,8 +27,10 @@ class TestBase:
     @pytest.mark.skip
     def delete_project(self, project_id):
         try:
-            requests.delete(URL_DELETE_PROJECT + str(project_id))
+            resp = requests.delete(URL_DELETE_PROJECT + str(project_id))
             print(f"DEL PROJECT {project_id} SUCCESSFULLY")
+            if resp.status_code == 404:
+                return json.loads(resp.text)
         except Exception as e:
             print(f"DEL PROJECT ERROR: {e}")
 
