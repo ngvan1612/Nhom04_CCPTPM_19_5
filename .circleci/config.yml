@@ -1,10 +1,12 @@
 version: 2.1
 
-install_python_package:
-  - run:
-      name: Cài đặt python package
-      command: |
-        pip install pytest requests opencv-python
+commands:
+  install_python_package:
+    steps:
+      - run:
+          name: Cài đặt python package
+          command: |
+            pip install pytest requests opencv-python
 
 jobs:
   build:
@@ -28,7 +30,7 @@ jobs:
       - image: cimg/python:3.7
     steps:
       - checkout
-      <<: *install_python_package
+      - install_python_package
       - run:
           name: Test tạo timeline thumbnail
           command: |
