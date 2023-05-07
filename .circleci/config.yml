@@ -1,13 +1,16 @@
 version: 2.1
 
+<<<<<<< Updated upstream
+=======
 commands:
   install_python_package:
     steps:
       - run:
           name: Cài đặt python package
           command: |
-            pip install pytest requests opencv-python
+            pip install pytest requests opencv-python pytest-html
 
+>>>>>>> Stashed changes
 jobs:
   build:
     docker:
@@ -15,28 +18,25 @@ jobs:
     steps:
       - checkout
       - run: echo "!!!"
-
-  prepare-report-directory:
+  test-video-server-app:
     docker:
       - image: cimg/python:3.7
     steps:
-      - run:
-          name: Chuẩn bị cho báo cáo test
-          command: |
-            mkdir -p test-results/thumbnail-timeline
-
-  test-create-project:
-    docker: 
-      - image: cimg/python:3.7
-    steps:
       - checkout
-      - install_python_package
+      - setup_remote_docker
+      - run:
+          name: Cài đặt pytest
+          command: |
+            pip install pytest requests
       - run:
           name: Test tạo project
           command: |
+<<<<<<< Updated upstream
             python -m pytest test_create_project.py
+=======
+            python -m pytest test_create_project.py --html=test-results/create-project/report.html
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/create-project
   
   test-list-projects:
     docker: 
@@ -44,12 +44,15 @@ jobs:
     steps:
       - checkout
       - install_python_package
+>>>>>>> Stashed changes
       - run:
           name: Test danh sách project
           command: |
             python -m pytest test_list_projects.py
+<<<<<<< Updated upstream
+=======
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
 
   test-delete-project:
     docker: 
@@ -57,12 +60,15 @@ jobs:
     steps:
       - checkout
       - install_python_package
+>>>>>>> Stashed changes
       - run:
           name: Test xóa project
           command: |
             python -m pytest test_delete_project.py
+<<<<<<< Updated upstream
+=======
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
 
   test-retrieve-project:
     docker: 
@@ -70,12 +76,15 @@ jobs:
     steps:
       - checkout
       - install_python_package
+>>>>>>> Stashed changes
       - run:
           name: Test truy xuất chi tiết project
           command: |
             python -m pytest test_retrieve_project_details.py
+<<<<<<< Updated upstream
+=======
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
 
   test-duplicate-projects:
     docker: 
@@ -83,12 +92,15 @@ jobs:
     steps:
       - checkout
       - install_python_package
+>>>>>>> Stashed changes
       - run:
           name: Test nhân bản project
           command: |
             python -m pytest test_duplicate.py
+<<<<<<< Updated upstream
+=======
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
 
   test-preview-thumbnail:
     docker: 
@@ -96,12 +108,15 @@ jobs:
     steps:
       - checkout
       - install_python_package
+>>>>>>> Stashed changes
       - run:
           name: Test tạo preview thumbnail
           command: |
             python -m pytest test_capture_a_thumbnail_for_preview.py
+<<<<<<< Updated upstream
+=======
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
 
   test-timeline-thumbnail:
     docker: 
@@ -114,7 +129,7 @@ jobs:
           command: |
             python -m pytest test_capture_a_thumbnail_for_timeline.py
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
 
   test-edit-video:
     docker: 
@@ -122,43 +137,18 @@ jobs:
     steps:
       - checkout
       - install_python_package
+>>>>>>> Stashed changes
       - run:
           name: Test chỉnh sửa video
           command: |
             python -m pytest test_edit_video.py
+<<<<<<< Updated upstream
+=======
       - store_test_results:
-          path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline/report.html
+>>>>>>> Stashed changes
 
 workflows:
-  video_server_test_pipeline:
+  build_and_test:
     jobs:
-      - build
-      - prepare-report-directory:
-          requires:
-            - build
-      - test-create-project:
-          requires:
-            - prepare-report-directory
-      - test-list-projects:
-          requires:
-            - prepare-report-directory
-      - test-delete-project:
-          requires:
-            - prepare-report-directory
-      - test-retrieve-project:
-          requires:
-            - prepare-report-directory
-      - test-duplicate-projects:
-          requires:
-            - prepare-report-directory
-      - test-preview-thumbnail:
-          requires:
-            - prepare-report-directory
-      - test-timeline-thumbnail:
-          requires:
-            - prepare-report-directory
-      - test-edit-video:
-          requires:
-            - prepare-report-directory
-
-
+      - test-video-server-app
