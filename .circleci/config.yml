@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Test tạo project
           command: |
-            python -m pytest test_create_project.py -v -s --html=test-results/create-project/report.html
+            python -m pytest test_create_project.py -v -s --junitxml=test-results/create-project/junit.xml
       - store_test_results:
           path: test-results/create-project
   
