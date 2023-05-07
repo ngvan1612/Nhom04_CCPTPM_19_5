@@ -177,7 +177,7 @@ class TestEditVideo(TestBase):
                 break
 
         self.delete_project(_id_create)
-        # assert thumbnail_1 != thumbnail_2
+        assert thumbnail_1 != thumbnail_2
         
 
     def test_04(self):
