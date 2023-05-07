@@ -51,6 +51,8 @@ class TestEditVideo(TestBase):
         _id_create = resp['_id']
         print(f'1. created {_id_create}')
 
+        self.waiting_for_processing(_id_create)
+
         json_request = {
                 "crop": "200,300,320,180",
                 "rotate": 90,
@@ -60,6 +62,7 @@ class TestEditVideo(TestBase):
         
         resp_project = self.edit_project(_id_create, json_request)
         print(resp_project)
+        self.waiting_for_processing(_id_create)
 
         self.delete_project(_id_create)
         print(f'3. deleted ok')
@@ -75,7 +78,7 @@ class TestEditVideo(TestBase):
         """
         result = binascii.b2a_hex(os.urandom(10))
         _id = result.decode('utf-8')    
-        print(_id)    
+        print(_id)
 
         json_request = {
                 "crop": "200,300,320,180",
@@ -100,6 +103,7 @@ class TestEditVideo(TestBase):
         resp = self.create_project('test_data/p-06.mp4')
         _id_create = resp['_id']
         print(f'1. created {_id_create}')
+        self.waiting_for_processing(_id_create)
 
         resp_dup = self.duplicate_project(_id_create)
         _id_dup = resp_dup['_id']
@@ -110,12 +114,11 @@ class TestEditVideo(TestBase):
         
         resp_project = self.edit_project(_id_dup, json_request)
         print(resp_project)
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
 
-        while (True):
-            video, status_code = self.get_video(_id_dup)
-            time.sleep(0.5)
-            if status_code == 200:
-                break
+        video, status_code = self.get_video(_id_dup)
+        print(status_code)
 
         with open('test_data/video-after-edit-03.mp4', 'rb') as file:
             video2 = file.read()
@@ -138,8 +141,12 @@ class TestEditVideo(TestBase):
         _id_create = resp['_id']
         print(f'1. created {_id_create}')
 
+        self.waiting_for_processing(_id_create)
+
         resp_dup = self.duplicate_project(_id_create)
         _id_dup = resp_dup['_id']
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
 
         json_request = {
                 "crop": "400,300,320,180"
@@ -148,11 +155,12 @@ class TestEditVideo(TestBase):
         resp_project = self.edit_project(_id_dup, json_request)
         print(resp_project)
 
-        while (True):
-            video, status_code = self.get_video(_id_dup)
-            time.sleep(0.5)
-            if status_code == 200:
-                break
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
+
+        video, status_code = self.get_video(_id_dup)
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
 
         with open('test_data/video-after-edit-04.mp4', 'rb') as file:
             video2 = file.read()
@@ -175,9 +183,12 @@ class TestEditVideo(TestBase):
         resp = self.create_project('test_data/p-06.mp4')
         _id_create = resp['_id']
         print(f'1. created {_id_create}')
+        self.waiting_for_processing(_id_create)
 
         resp_dup = self.duplicate_project(_id_create)
         _id_dup = resp_dup['_id']
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
 
         json_request = {
                 "crop": "200,300,320,180",
@@ -188,12 +199,12 @@ class TestEditVideo(TestBase):
         
         resp_project = self.edit_project(_id_dup, json_request)
         print(resp_project)
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
 
-        while (True):
-            video, status_code = self.get_video(_id_dup)
-            time.sleep(0.5)
-            if status_code == 200:
-                break
+        video, status_code = self.get_video(_id_dup)
+        self.waiting_for_processing(_id_create)
+        self.waiting_for_processing(_id_dup)
 
         with open('test_data/video-after-edit-02.mp4', 'rb') as file:
             video2 = file.read()
