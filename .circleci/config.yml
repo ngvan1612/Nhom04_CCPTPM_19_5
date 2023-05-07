@@ -30,15 +30,11 @@ jobs:
       - image: cimg/python:3.7
     steps:
       - checkout
-      - setup_remote_docker
-      - run:
-          name: Cài đặt pytest
-          command: |
-            pip install pytest requests
+      - install_python_package
       - run:
           name: Test tạo project
           command: |
-            python -m pytest test_create_project.py --html=test-results/create-project/report.html
+            python -m pytest test_create_project.py -v -s --html=test-results/create-project/report.html
       - store_test_results:
           path: test-results/create-project
   
