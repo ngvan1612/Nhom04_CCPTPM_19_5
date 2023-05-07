@@ -8,13 +8,13 @@ jobs:
       - checkout
       - run: echo "!!!"
   prepare-report:
-    docker: 
+    docker:
       - image: cimg/python:3.7
     steps:
       - run:
-        name: Chuẩn bị cho báo cáo test
-        command: |
-          mkdir -p test-results/thumbnail-timeline
+          name: Chuẩn bị cho báo cáo test
+          command: |
+            mkdir -p test-results/thumbnail-timeline
   test-thumbnail-timeline:
     docker: 
       - image: cimg/python:3.7
@@ -24,7 +24,7 @@ jobs:
           command: |
             python -m pytest test_capture_a_thumbnail_for_timeline.py
       - store_test_results:
-        path: test-results/thumbnail-timeline
+          path: test-results/thumbnail-timeline
   test-video-server-app:
     docker:
       - image: cimg/python:3.7
