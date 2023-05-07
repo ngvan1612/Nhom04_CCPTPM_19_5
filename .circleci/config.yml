@@ -154,9 +154,6 @@ workflows:
       - test-timeline-thumbnail:
           requires:
             - prepare-report-directory
-      # - test-edit-video:
-      #     requires:
-      #       - prepare-report-directory
       - test-list-projects:
           requires:
             - test-create-project
@@ -165,3 +162,6 @@ workflows:
             - test-preview-thumbnail
             - test-timeline-thumbnail
             - prepare-report-directory
+      - test-edit-video:
+          requires:
+            - test-list-projects
