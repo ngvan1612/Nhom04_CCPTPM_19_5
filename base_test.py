@@ -25,6 +25,9 @@ class TestBase:
             ids = [x['_id'] for x in _items]
             for idx in ids:
                 self.delete_project(idx)
+            while self.get_all_projects():
+                print('Waiting for delete project')
+                time.sleep(0.5)
         else:
             for idx in self.ids:
                 self.delete_project(idx)
