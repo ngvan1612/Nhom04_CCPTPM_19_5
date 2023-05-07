@@ -164,3 +164,4 @@ workflows:
             - test-duplicate-projects
             - test-preview-thumbnail
             - test-timeline-thumbnail
+            - prepare-report-directory
