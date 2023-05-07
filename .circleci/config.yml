@@ -35,8 +35,6 @@ jobs:
           name: Test tạo project
           command: |
             python -m pytest test_create_project.py --html=test-results/report.html
-      - store_test_results:
-          path: test-results
       - store_artifacts:
           path: test-results
   
@@ -49,9 +47,9 @@ jobs:
       - run:
           name: Test danh sách project
           command: |
-            python -m pytest test_list_projects.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_list_projects.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
   test-delete-project:
     docker: 
@@ -62,9 +60,9 @@ jobs:
       - run:
           name: Test xóa project
           command: |
-            python -m pytest test_delete_project.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_delete_project.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
   test-retrieve-project:
     docker: 
@@ -75,9 +73,9 @@ jobs:
       - run:
           name: Test truy xuất chi tiết project
           command: |
-            python -m pytest test_retrieve_project_details.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_retrieve_project_details.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
   test-duplicate-projects:
     docker: 
@@ -88,9 +86,9 @@ jobs:
       - run:
           name: Test nhân bản project
           command: |
-            python -m pytest test_duplicate.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_duplicate.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
   test-preview-thumbnail:
     docker: 
@@ -101,9 +99,9 @@ jobs:
       - run:
           name: Test tạo preview thumbnail
           command: |
-            python -m pytest test_capture_a_thumbnail_for_preview.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_capture_a_thumbnail_for_preview.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
   test-timeline-thumbnail:
     docker: 
@@ -114,9 +112,9 @@ jobs:
       - run:
           name: Test tạo timeline thumbnail
           command: |
-            python -m pytest test_capture_a_thumbnail_for_timeline.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_capture_a_thumbnail_for_timeline.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
   test-edit-video:
     docker: 
@@ -127,9 +125,9 @@ jobs:
       - run:
           name: Test chỉnh sửa video
           command: |
-            python -m pytest test_edit_video.py
-      - store_test_results:
-          path: test-results/thumbnail-timeline/report.html
+            python -m pytest test_edit_video.py --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
 
 workflows:
   video_server_test_pipeline:
