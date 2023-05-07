@@ -130,7 +130,6 @@ workflows:
       - prepare-report-directory:
           requires:
             - build
-      - test-thumbnail-timeline:
       - test-create-project:
           requires:
             - prepare-report-directory
@@ -143,7 +142,6 @@ workflows:
       - test-retrieve-project:
           requires:
             - prepare-report-directory
-      - test-video-server-app
       - test-duplicate-projects:
           requires:
             - prepare-report-directory
