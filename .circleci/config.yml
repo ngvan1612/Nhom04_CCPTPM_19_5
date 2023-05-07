@@ -15,7 +15,17 @@ jobs:
     steps:
       - checkout
       - run: echo "!!!"
-  test-video-server-app:
+
+  prepare-report-directory:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - run:
+          name: Chuẩn bị cho báo cáo test
+          command: |
+            mkdir -p test-results
+
+  test-create-project:
     docker:
       - image: cimg/python:3.7
     steps:
