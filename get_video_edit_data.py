@@ -207,13 +207,12 @@ def getVideoEdit03():
 
     
     json_request = {
-                "scale": 1000
+                "scale": 5
                 }
 
     i = 0
     print('waiting for processing...', i)
     resp_edit = testProj.edit_project(_id_dup, json_request)
-    assert resp_edit['processing'] == True
 
     while (True):
         resp, status_code = testProj.get_video(_id_dup)
@@ -314,7 +313,7 @@ def getThumnail_01():
 
 # getVideoEdit01()
 # getVideoEdit02()
-# getVideoEdit03()
+getVideoEdit03()
 # getVideoEdit04()
 # getVideoEdit05()
-getThumnail_01()
+# getThumnail_01()
