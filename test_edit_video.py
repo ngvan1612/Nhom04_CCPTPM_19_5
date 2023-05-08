@@ -7,6 +7,7 @@ import binascii
 import os
 from base_test import TestBase
 from type import *
+import hashlib
 
 class TestEditVideo(TestBase):
     
@@ -38,6 +39,10 @@ class TestEditVideo(TestBase):
             URL_GET_VIDEO + str(project_id) + '/raw/video'
         )
         return  resp.content, resp.status_code
+    
+    @pytest.mark.skip
+    def calc_md5_from_stream(self, stream) -> str:
+        return hashlib.md5(stream).hexdigest()
 
     def test_01(self):
         """
@@ -129,7 +134,10 @@ class TestEditVideo(TestBase):
         print(len(video))
         print(len(video2))
 
-        assert video == video2
+        md5_v1 = self.calc_md5_from_stream(video)
+        md5_v2 = self.calc_md5_from_stream(video2)
+
+        assert md5_v1 == md5_v2
 
     def test_04(self):
         """
@@ -171,7 +179,10 @@ class TestEditVideo(TestBase):
         self.delete_project(_id_create)
         print(f'3. deleted ok')
 
-        assert video == video2
+        md5_v1 = self.calc_md5_from_stream(video)
+        md5_v2 = self.calc_md5_from_stream(video2)
+
+        assert md5_v1 == md5_v2
 
 
     def test_05(self):
@@ -215,4 +226,7 @@ class TestEditVideo(TestBase):
         self.delete_project(_id_create)
         print(f'3. deleted ok')
 
-        assert video == video2
+        md5_v1 = self.calc_md5_from_stream(video)
+        md5_v2 = self.calc_md5_from_stream(video2)
+
+        assert md5_v1 == md5_v2
