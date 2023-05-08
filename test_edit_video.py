@@ -193,7 +193,7 @@ class TestEditVideo(TestBase):
         json_request = {
                 "crop": "200,300,320,180",
                 "rotate": 90,
-                "scale": 800,
+                "scale": 5,
                 "trim": "4.1,100.5"
                 }
         
