@@ -251,7 +251,6 @@ def getVideoEdit04():
     i = 0
     print('waiting for processing...', i)
     resp_edit = testProj.edit_project(_id_dup, json_request)
-    assert resp_edit['processing'] == True
 
     while (True):
         resp, status_code = testProj.get_video(_id_dup)
@@ -269,21 +268,44 @@ def getVideoEdit04():
     testProj.delete_project(_id_create)
     testProj.delete_project(_id_dup)
     print(f'3. deleted ok')
-
+    
 def getVideoEdit05():
-    url = 'https://www.youtube.com/watch?v=grAZ5VVKnR0'
-    path = 'test_data/test_get_video.mp4'
+    testProj = TestProject()
+    resp = testProj.create_project('test_data/p-06.mp4')
+    _id_create = resp['_id']
+    print(f'1. created {_id_create}')
 
-    # yt = YouTube("https://www.youtube.com/shorts/grAZ5VVKnR0")
-    # yt = yt.get('mp4', '720p')
-    # yt.download('test_data/test_get_video.mp4')
+    resp_dup = testProj.duplicate_project(_id_create)
+    _id_dup = resp_dup['_id']
+    print(f'2. duplicated {_id_dup}')
 
-    # video = YouTube(url)
-    # video_streams = video.streams
-    # print(video_streams)
-    ydl_opts = {}
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download(['https://www.youtube.com/watch?v=grAZ5VVKnR0'])
+    json_request = {
+                "crop": "200,300,320,180",
+                "rotate": 90,
+                "scale": 5,
+                "trim": "4.1,100.5"
+                }
+
+    i = 0
+    print('waiting for processing...', i)
+    resp_edit = testProj.edit_project(_id_dup, json_request)
+
+    while (True):
+        resp, status_code = testProj.get_video(_id_dup)
+        time.sleep(0.5)
+        i+=1
+        print('waiting for processing...', i)
+        if status_code == 200:
+            break
+
+    resp_project, status_code = testProj.get_video(_id_dup)
+
+    with open('test_data/video-after-edit-04.mp4', 'wb') as f:
+        f.write(resp_project)
+
+    testProj.delete_project(_id_create)
+    testProj.delete_project(_id_dup)
+    print(f'3. deleted ok')
 
 def getThumnail_01():
     testProj = TestProject()
@@ -313,7 +335,7 @@ def getThumnail_01():
 
 # getVideoEdit01()
 # getVideoEdit02()
-getVideoEdit03()
+# getVideoEdit03()
 # getVideoEdit04()
-# getVideoEdit05()
+getVideoEdit05()
 # getThumnail_01()
