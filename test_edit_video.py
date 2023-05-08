@@ -126,6 +126,9 @@ class TestEditVideo(TestBase):
         self.delete_project(_id_create)
         print(f'3. deleted ok')
 
+        print(len(video))
+        print(len(video2))
+
         assert video == video2
 
     def test_04(self):
