@@ -109,7 +109,7 @@ class TestEditVideo(TestBase):
         _id_dup = resp_dup['_id']
 
         json_request = {
-                "scale": 1000
+                "scale": 5
                 }
         
         resp_project = self.edit_project(_id_dup, json_request)
