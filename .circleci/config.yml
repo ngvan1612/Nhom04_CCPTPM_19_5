@@ -132,7 +132,7 @@ jobs:
 workflows:
   video_server_test_pipeline:
     jobs:
-      - build
+      - build:
           filters:
             branches:
               only:
