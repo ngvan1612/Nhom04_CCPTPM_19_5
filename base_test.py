@@ -59,8 +59,8 @@ class TestBase:
         return j
     
     @pytest.mark.skip
-    def calc_hash_class(self, stream) -> str:
-        return stream.__class__
+    def calc_hash_class(self, stream) -> bytes:
+        return stream.__class__.encode('utf-8')
     
     @pytest.mark.skip
     def waiting_for_processing(self, project_id):
