@@ -138,7 +138,7 @@ class TestListProject(TestBase):
         # upload 30 video
         _input_data = input_data * 10
 
-        for path in input_data:
+        for path in _input_data:
             self.upload_project(path)
 
         projects = []
@@ -167,7 +167,7 @@ class TestListProject(TestBase):
 
         _input_data = input_data * 5
 
-        for path in input_data:
+        for path in _input_data:
             self.upload_project(path)
 
         projects = []
@@ -191,8 +191,8 @@ class TestListProject(TestBase):
         # upload 3 video
         input_data = [
             'test_data/p-01.mp4',
-            'test_data/p-02.mp4',
-            'test_data/p-03.mp4'
+            'test_data/p-01.mp4',
+            'test_data/p-01.mp4'
         ]
 
         for path in input_data:
