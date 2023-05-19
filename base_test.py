@@ -59,6 +59,10 @@ class TestBase:
         return j
     
     @pytest.mark.skip
+    def calc_hash_class(self, stream) -> str:
+        return stream.__class__
+    
+    @pytest.mark.skip
     def waiting_for_processing(self, project_id):
         while True:
             resp = requests.get(URL_LIST_PROJECTS + project_id)
