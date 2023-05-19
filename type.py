@@ -1,5 +1,5 @@
 #BASE_URL = 'http://222.255.117.242:5050'
-BASE_URL = 'http://ec2-54-86-67-182.compute-1.amazonaws.com:5050'
+BASE_URL = 'http://ec2-52-2-164-178.compute-1.amazonaws.com:5050'
 #BASE_URL = 'http://localhost:5050'
 
 TIMEOUT_CHECK_TEST_CASE = 300 # 300 giay
