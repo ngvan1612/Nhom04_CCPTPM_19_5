@@ -116,6 +116,19 @@ jobs:
       - store_artifacts:
           path: test-results
 
+  test-get-thumbnail:
+    docker: 
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - install_python_package
+      - run:
+          name: Test get thumbnail
+          command: |
+            python -m pytest test_get_thumbnail_file.py -v -s --html=test-results/report.html
+      - store_artifacts:
+          path: test-results
+
   test-edit-video:
     docker: 
       - image: cimg/python:3.7
@@ -132,11 +145,11 @@ jobs:
 workflows:
   video_server_test_pipeline:
     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - testing
+      - build
+          # filters:
+          #   branches:
+          #     only:
+          #       - testing
       - prepare-report-directory:
           requires:
             - build
@@ -158,13 +171,16 @@ workflows:
       - test-timeline-thumbnail:
           requires:
             - prepare-report-directory
-      - test-list-projects:
+      - test-get-thumbnail:
           requires:
             - test-create-project
             - test-delete-project
             - test-duplicate-projects
             - test-preview-thumbnail
             - test-timeline-thumbnail
+      - test-list-projects:
+          requires:
+            - test-get-thumbnail
       - test-edit-video:
           requires:
             - test-list-projects
