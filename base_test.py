@@ -60,7 +60,7 @@ class TestBase:
     
     @pytest.mark.skip
     def calc_hash_class(self, stream) -> bytes:
-        return stream.__class__.encode('utf-8')
+        return stream.__class__.__name__.encode('utf-8')
     
     @pytest.mark.skip
     def waiting_for_processing(self, project_id):
