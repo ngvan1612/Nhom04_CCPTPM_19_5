@@ -42,7 +42,7 @@ class TestEditVideo(TestBase):
     
     @pytest.mark.skip
     def calc_md5_from_stream(self, stream) -> str:
-        return hashlib.md5(stream).hexdigest()
+        return hashlib.md5(self.calc_hash_class(stream)).hexdigest()
 
     def test_01(self):
         """
