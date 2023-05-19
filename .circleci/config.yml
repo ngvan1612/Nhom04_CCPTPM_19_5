@@ -133,6 +133,10 @@ workflows:
   video_server_test_pipeline:
     jobs:
       - build
+        filters:
+          branches:
+            only:
+              - testing
       - prepare-report-directory:
           requires:
             - build
